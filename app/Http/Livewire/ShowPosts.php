@@ -12,6 +12,8 @@ class ShowPosts extends Component
     public $sort = 'id';
     public $direction = 'desc';
 
+    protected $listeners = ['render'];
+
     public function render()
     {
         //Los porcentajes sirven para hacer busquedas por cada palabra en la base datos

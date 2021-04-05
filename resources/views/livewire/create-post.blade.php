@@ -13,13 +13,17 @@
 
             <div class="mb-4">
                 <x-jet-label value="Title of post"/>
-                <x-jet-input type="text" class="w-full" wire:model.defer="title"/>
+                <x-jet-input type="text" class="w-full" wire:model="title"/>
             </div>
+
+            <x-jet-input-error for="title"/>
 
             <div class="mb-4">
                 <x-jet-label value="Content of post"/>
-                <textarea class="form-control w-full" rows="6" wire:model.defer="content"></textarea>
+                <textarea class="form-control w-full" rows="6" wire:model="content"></textarea>
             </div>
+
+            <x-jet-input-error for="content"/>
 
         </x-slot>
 

@@ -7,8 +7,18 @@ use Livewire\Component;
 
 class CreatePost extends Component
 {
-    public $open = true;
+    public $open = false;
     public $title, $content;
+
+    protected $rules = [
+        'title' => 'required|max:10',
+        'content' => 'required|min:50',
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
     
     public function render()
     {
@@ -17,9 +27,16 @@ class CreatePost extends Component
 
     public function save()
     {
+        $this->validate();
+
         Post::create([
             'title' => $this->title,
             'content' => $this->content,
         ]);
+
+        $this->reset(['open', 'title', 'content']);
+
+        $this->emitTo('show-posts','render');
+        $this->emit('alert', 'The post was  created successfully');
     }
 }
