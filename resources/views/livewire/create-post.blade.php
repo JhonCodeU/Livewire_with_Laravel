@@ -32,9 +32,10 @@
                 Cancel
             </x-jet-secondary-button>
 
-            <x-jet-danger-button wire:click="save">
+            <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save" class="disabled:opacity-25">
                 Create Post
             </x-jet-danger-button>
+
         </x-slot>
 
     </x-jet-dialog-modal>
