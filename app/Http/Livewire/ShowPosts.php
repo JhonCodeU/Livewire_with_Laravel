@@ -5,9 +5,14 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class ShowPosts extends Component
 {
+
+    use WithFileUploads;
+    use WithPagination;
 
     public $search, $post, $image, $identificator;
     public $sort = 'id';
@@ -33,7 +38,7 @@ class ShowPosts extends Component
         $posts = Post::where('title', 'like', '%' . $this->search . '%')
         ->orWhere('content', 'like', '%' . $this->search . '%')
         ->orderBy($this->sort, $this->direction)
-        ->get();
+        ->paginate(10);
 
         return view('livewire.show-posts',[
             'posts' => $posts
@@ -71,5 +76,9 @@ class ShowPosts extends Component
         $this->identificator = rand();
 
         $this->emit('alert', 'The post was updated successfully');
+    }
+
+    public function updatingSearch(){
+        $this->resetPage();
     }
 }
