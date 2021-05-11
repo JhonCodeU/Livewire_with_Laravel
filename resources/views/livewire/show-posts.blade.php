@@ -12,8 +12,24 @@
             {{--$search--}}
             
             <div class="px-6 py-4 flex items-center">
+                
+                {{-- Show by list --}}
+
+                <div class="flex items-center">
+                    <span>Show</span>
+
+                    <select wire:model="amount" class="mx-2 form-control">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+
+                    <span>entries</span>
+                </div>
+
                 <!--<input type="text" wire:model="search" placeholder="Search a register">-->
-                <x-jet-input class="flex-1 mr-4" type="text" wire:model="search" placeholder="Search a register"/>
+                <x-jet-input class="flex-1 mr-4 mx-4" type="text" wire:model="search" placeholder="Search a register"/>
 
                 @livewire('create-post')
             </div>
