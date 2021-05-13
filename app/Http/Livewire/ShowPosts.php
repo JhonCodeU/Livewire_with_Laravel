@@ -19,6 +19,7 @@ class ShowPosts extends Component
     public $sort = 'id';
     public $direction = 'desc';
     public $amount = '10'; 
+    public $readyToLoad = false;
 
     public $open_edit = false;
 
@@ -45,14 +46,23 @@ class ShowPosts extends Component
     public function render()
     {
         //Los porcentajes sirven para hacer busquedas por cada palabra en la base datos
-        $posts = Post::where('title', 'like', '%' . $this->search . '%')
-        ->orWhere('content', 'like', '%' . $this->search . '%')
-        ->orderBy($this->sort, $this->direction)
-        ->paginate($this->amount);
+        if($this->readyToLoad == true){
+            $posts = Post::where('title', 'like', '%' . $this->search . '%')
+            ->orWhere('content', 'like', '%' . $this->search . '%')
+            ->orderBy($this->sort, $this->direction)
+            ->paginate($this->amount);
+        }else{
+            $posts = [];
+        }
+
 
         return view('livewire.show-posts',[
             'posts' => $posts
         ]);
+    }
+
+    public function loadPost(){
+        $this->readyToLoad = true;
     }
 
     public function order($sort = ''){
